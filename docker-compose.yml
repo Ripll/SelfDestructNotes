@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - C:/Users/ripll/PycharmProjects/OneTimeNote:/app
+    ports:
+      - "80:80"
+    environment:
+      - REDIS_TYPE=redis
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: /start-reload.sh
+  redis:
+    image: "redis:alpine"

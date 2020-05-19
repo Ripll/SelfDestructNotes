@@ -1,0 +1,4 @@
+fastapi
+fastapi-plugins
+jinja2
+aiofiles
