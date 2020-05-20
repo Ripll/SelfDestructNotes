@@ -2,3 +2,4 @@ fastapi
 fastapi-plugins
 jinja2
 aiofiles
+python-multipart

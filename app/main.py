@@ -1,6 +1,7 @@
 import typing
+import uuid
 import aioredis
-from fastapi import FastAPI, Depends, Request
+from fastapi import FastAPI, Depends, Request, Form
 from fastapi_plugins import depends_redis, redis_plugin, RedisSettings
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -18,8 +19,23 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
-async def root_get(cache: aioredis.Redis = Depends(depends_redis)):
-    return dict(ping=await cache.ping())
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/{key}")
+async def get_key(request: Request, key, db: aioredis.Redis = Depends(depends_redis)):
+    note = await db.get(key)
+    return note
+
+
+@app.post("/created")
+async def created(request: Request, note: str = Form(...), db: aioredis.Redis = Depends(depends_redis)):
+    key = str(uuid.uuid4())
+    await db.set(key, note)
+
+    return templates.TemplateResponse("generated_link.html", {"request": request,
+                                                              "key": key})
 
 
 @app.on_event('startup')

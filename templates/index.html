@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Self destructed notes</title>
-</head>
-<body>
-Hello World!
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}- Index{% endblock %}
+{% block content %}
+		<form action="{{ url_for('created')}}" method="post">
+            <label for="noteArea"><h1>New private note</h1></label><br>
+			<textarea id="noteArea" name="note" placeholder="Write your note here..." required></textarea>
+			<small class="form-text text-muted">Note will be deleted after seen.</small>
+			<div class="btn-wrapper">
+				<button type="submit" class="btn btn-lg btn-danger">Create note</button>
+			</div>
+		</form>
+{% endblock %}
