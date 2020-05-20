@@ -26,7 +26,12 @@ async def index(request: Request):
 @app.get("/{key}")
 async def get_key(request: Request, key, db: aioredis.Redis = Depends(depends_redis)):
     note = await db.get(key)
-    return note
+    if note:
+        await db.delete(key)
+        return templates.TemplateResponse("result.html", {"request": request,
+                                                          "note": note.decode("utf-8")})
+    else:
+        return templates.TemplateResponse("deleted.html", {"request": request})
 
 
 @app.post("/created")

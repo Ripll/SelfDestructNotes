@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}- Result note{% endblock %}
+
+{% block content %}
+		<form>
+            <label for="noteArea"><h1>Note</h1></label><br>
+			<textarea id="noteArea" class="text-muted" name="note" required>{{note}}</textarea>
+			<small class="form-text text-muted">This note will be destroyed after viewing. You won’t be able to watch her a second time.</small>
+			<div class="btn-wrapper">
+				  <a class="btn btn-primary" href="{{url_for('index')}}" role="button">Create my own private note</a>
+			</div>
+		</form>
+{% endblock %}

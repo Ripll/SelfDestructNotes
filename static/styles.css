@@ -24,6 +24,7 @@ textarea {
 	width: 100%;
 	height: 250px;
 	background: #ffface;
+	font-size: 15px;
 }
 .btn-wrapper {
 	margin-top: 20px;
